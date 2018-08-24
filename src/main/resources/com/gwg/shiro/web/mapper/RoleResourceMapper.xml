@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwg.shiro.web.mapper.RoleResourceMapper">
+  <resultMap id="BaseResultMap" type="com.gwg.shiro.web.model.RoleResource">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="res_code" jdbcType="VARCHAR" property="resCode" />
+  </resultMap>
+
+  <select id="queryResourceListByRoleId" parameterType="com.gwg.shiro.web.dto.RoleDto" resultType="com.gwg.shiro.web.model.Resource">
+    SELECT
+    t1.*
+    FROM
+    tbl_resource t1
+    INNER JOIN tbl_role_resource t2 ON t1.res_code = t2.res_code
+    INNER JOIN tbl_role t3 ON t3.role_code = t2.role_code
+    <where>
+      t1.valid_flag = '1'
+      and t3.valid_flag = '1'
+      <if test="id != null">
+        AND t3.id= #{id,jdbcType=BIGINT}
+      </if>
+    </where>
+    GROUP BY t1.id
+    ORDER BY t1.sort ASC
+  </select>
+</mapper>

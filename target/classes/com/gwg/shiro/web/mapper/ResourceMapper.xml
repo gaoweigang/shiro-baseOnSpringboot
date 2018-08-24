@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwg.shiro.web.mapper.ResourceMapper">
+  <resultMap id="BaseResultMap" type="com.gwg.shiro.web.model.Resource">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="res_code" jdbcType="VARCHAR" property="resCode" />
+    <result column="res_name" jdbcType="VARCHAR" property="resName" />
+    <result column="res_url" jdbcType="VARCHAR" property="resUrl" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="valid_flag" jdbcType="BIT" property="validFlag" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <select id="queryCurrentUserMenu" resultType="com.gwg.shiro.web.model.Resource">
+    SELECT
+    t1.id   as id,
+    t1.res_code   as resCode,
+    t1.res_name   as resName,
+    t1.res_url   as resUrl,
+    t1.type   as type,
+    t1.pid   as pid,
+    t1.sort   as sort
+    FROM
+    tbl_resource t1
+    INNER JOIN tbl_role_resource t2 ON t1.res_code = t2.res_code
+    INNER JOIN tbl_role t3 ON t3.role_code = t2.role_code
+    INNER JOIN tbl_user_role t4 ON t4.role_code = t3.role_code
+    INNER JOIN tbl_user t5 on t5.user_id = t4.user_id
+    <where>
+      t1.valid_flag = '1'
+      and t1.type = '1'
+      and t3.valid_flag = '1'
+      and t5.valid_flag = '1'
+      <if test="userId != null">
+        and t5.user_id = #{userId}
+      </if>
+      GROUP BY t1.id
+      ORDER BY t1.sort ASC
+    </where>
+
+  </select>
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwg.shiro.web.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.gwg.shiro.web.model.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="valid_flag" jdbcType="BIT" property="validFlag" />
+    <result column="entry_time" jdbcType="TIMESTAMP" property="entryTime" />
+    <result column="resign_time" jdbcType="TIMESTAMP" property="resignTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <select id="queryUserInfo" parameterType="com.gwg.shiro.web.dto.UserDto" resultType="com.gwg.shiro.web.vo.UserVo">
+      SELECT
+        t2.id as id,
+        t2.username as username,
+        t2.user_id as userId,
+        t2.card_no as cardNo,
+        t2.mobile as mobile,
+        t2.entry_time as entryTime,
+        t2.status as status,
+        t4.role_code as roleCode,
+        t4.role_name as roleName
+      FROM
+          tbl_account t1
+      INNER JOIN tbl_user t2 ON t1.user_id = t2.user_id
+      INNER JOIN tbl_user_role t3 ON t2.user_id = t3.user_id
+      INNER JOIN tbl_role t4 on t3.role_code = t4.role_code
+      <where>
+        t1.valid_flag = '1'
+        and t2.valid_flag = '1'
+        and t4.valid_flag = '1'
+        <if test="userId != null" >
+          and t1.user_id = #{userId,jdbcType=VARCHAR}
+        </if>
+        <if test="cardNo != null" >
+          and t2.card_no = #{cardNo,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile != null" >
+          and t2.mobile = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="entryStartDate != null and entryEndDate != null " >
+          and t2.entry_time BETWEEN #{entryStartDate,jdbcType=VARCHAR} and #{entryEndDate,jdbcType=VARCHAR}
+        </if>
+        <if test="roleCode != null" >
+          and t3.role_code = #{roleCode,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null" >
+          and t2.status = #{status,jdbcType=BIT}
+        </if>
+      </where>
+  </select>
+
+</mapper>

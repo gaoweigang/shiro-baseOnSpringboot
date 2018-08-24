@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>跨域测试：这是一个静态页面(注意：是静态页面)，不需要启动服务器，直接拖到浏览器即可访问 </title>
+<script src="./jquery.js"></script>
+<script type="text/javascript">
+function getUserInfoById(btn) {
+    var $btn = $(btn);
+    var userid = $btn.next('input').val();
+    if (!userid) {
+        $btn.next('input').next('p').html('userid不能为空');
+        return;
+    }
+    console.log("userid:"+userid);
+    $.ajax({
+        type: 'post',
+        url: 'http://localhost:8088/user/queryUserInfoById',
+        contentType: "application/json",  //如果改为 application/json ，则是复杂的跨域请求
+        data: "{\"userid\":\"" + userid + "\"}",
+        dataType: 'json',
+        xhrFields: {
+            withCredentials: true
+        }
+    }).then(
+            function (obj) {
+                $btn.next('input').next('p').html(JSON.stringify(obj));
+            },
+            function () {
+                $btn.next('input').next('p').html('error...');
+            }
+    )
+}
+
+function addRole(btn) {
+    var $btn = $(btn);
+    var roleName = $btn.next('input').val();
+    var roleDesc = $btn.next('input').next('input').val();
+    if (!roleName) {
+        $btn.next('input').next('input').next('p').html('角色名不能为空');
+        return;
+    }
+    console.log("请求参数，角色名称："+roleName+"，角色描述："+roleDesc);
+    //jquery ajax post请求
+    $.ajax({
+        type: 'post',
+        url: 'http://localhost:8088/role/ajaxAddRole',
+        contentType: "application/json",  //如果改为 application/json ，则是复杂的跨域请求
+        /*当dataType指定为json后,1.4+以上的jquery版本对json格式要求更加严格.如果不是严格的json格式,就不能正常执行success回调函数.
+          JSON格式总结下，详细的去json.org 查看。 　　 
+				1）键名称：用双引号 括起 　　 
+				2）字符串：用使用双引号 括起 
+				3）数字，布尔类型不需要 使用双引号 括起
+        */
+        data: "{\"roleName\":\""+roleName+"\",\"roleDesc\":\""+roleDesc+"\"}",
+        dataType: 'json',
+        xhrFields: {
+            withCredentials: true
+        }
+    }).then(
+        function (obj) {//登陆成功之后页面跳转
+            console.log('角色添加成功');
+            $btn.next('input').next('input').next('p').html(JSON.stringify(obj));
+        },
+        function () {
+            console.log('角色添加失败');
+            $btn.next('input').next('input').next('p').html('error...');
+        }
+    )
+}
+
+function login(btn) {
+    var $btn = $(btn);
+    var username = $btn.next('input').val();
+    var password = $btn.next('input').next('input').val();
+    if (!username) {
+        $btn.next('input').next('input').next('p').html('用户名不能为空');
+        return;
+    }
+	console.log("请求参数"+username+", 请求密码："+password);
+    $.ajax({
+        type: 'post',
+        url: 'http://localhost:8088/user/ajaxLogin',
+        contentType: "application/json",
+      /*当dataType指定为json后,1.4+以上的jquery版本对json格式要求更加严格.如果不是严格的json格式,就不能正常执行success回调函数.
+        JSON格式总结下，详细的去json.org 查看。 　　 
+				1）键名称：用双引号 括起 　　 
+				2）字符串：用使用双引号 括起 
+				3）数字，布尔类型不需要 使用双引号 括起
+       */
+        data: "{\"username\":\""+username+"\",\"password\":\""+password+"\"}",
+        dataType: 'json', 
+        //如果前端和后端都不设置Access-Control-Allow-Credentials，那么cookie就不会再浏览器和服务器之间传递
+        xhrFields: {
+            withCredentials: true
+        }
+}).then(
+            function (obj) {//登陆成功之后页面跳转
+                console.log('登陆成功');
+                $btn.next('input').next('input').next('p').html(JSON.stringify(obj));
+            },
+            function () {
+			    console.log('登陆失败');
+                $btn.next('input').next('input').next('p').html('error...');
+            }
+    )
+}
+</script>
+</head>
+<body>
+ <h>你已成功访问到主页面！</h><br/>
+ <hr>
+
+ <input type="button" value="非简单的跨域：登录" id="login" onclick="login(this)">
+ <input type="text" placeholder="用户名">
+ <input type="text" placeholder="密码">
+ <p color="blue"></p>
+ <hr>
+
+ <input type="button" value="复杂跨域：根据userid获取用户" onclick="getUserInfoById(this)">
+ <input type="text" placeholder="用户id">
+ <p style="color:red"></p>
+ <hr>
+
+ <input type="button" value="非简单跨域：添加角色（JSON请求）" id="complex_cors" onclick="addRole(this)">
+ <input type="text" placeholder="角色">
+ <input type="text" placeholder="角色描述">
+ <p color="red"></p>
+ <hr>
+
+</body>
+</html>

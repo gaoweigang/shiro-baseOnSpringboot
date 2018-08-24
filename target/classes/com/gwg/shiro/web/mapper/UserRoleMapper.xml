@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwg.shiro.web.mapper.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.gwg.shiro.web.model.UserRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+  </resultMap>
+    <select id="queryRoleListByUserid" resultType="java.lang.String">
+      SELECT
+            t3.name
+        FROM
+            tbl_user t1
+        INNER JOIN tbl_user_role t2 ON t1.userid = t2.USERID
+        INNER JOIN tbl_role t3 ON t2.ROLEID = t3.`name`
+        where
+        t1.validflag = 1
+        and t1.userid = #{userid}
+     </select>
+</mapper>
