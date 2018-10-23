@@ -1,17 +1,22 @@
---创建数据dev
+/*使用springmvc的时候数据类型不要定义成tinyint,该类型通过Mybatis反向生成代码生成boolean类型，这样会带来一个问题：
+前端传递后端的参数必须是“true”和"false"(没错，就是带双引号的true和false字符串)，后端返回给前端的确实0和1。
+解决：在这里建议使用char类型
+*/
+
+/*创建数据dev*/
 CREATE DATABASE zkmkt;
 
---切换到数据库dev
+/*切换到数据库dev*/
 USE zkmkt;
 
---查看当前正在使用的数据库
+/*查看当前正在使用的数据库*/
 select DATABASE();
 
---查看当前库中存在哪些表
+/*查看当前库中存在哪些表*/
 show tables;
 
---创建表
---登陆日志表
+/*创建表*/
+/*登陆日志表*/
 create table `tbl_login_log` (
   `id` bigint(64) not null auto_increment comment '主键流水号',
   `client_ip` varchar(64) default null comment '客户端登陆ip',
@@ -22,15 +27,15 @@ create table `tbl_login_log` (
   `service_id` varchar(64) default null comment '服务系统 0 业务系统 1支撑系统',
   `user_id` varchar(64) default null comment '用户id',
   `username` varchar(64) default null comment '用户姓名',
-   create_time timestamp NULL DEFAULT NULL comment '创建时间',
-   modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-   creator varchar(32) default null comment '创建人',
-   modifier varchar(32) default null comment '修改人',
-   remark varchar(255) default null comment '描述',
+  create_time timestamp NULL DEFAULT NULL comment '创建时间',
+  modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  creator varchar(32) default null comment '创建人',
+  modifier varchar(32) default null comment '修改人',
+  remark varchar(255) default null comment '描述',
   primary key (`id`)
 ) engine=innodb default charset=utf8 comment='登陆信息表';
 
---用户角色关联表 在此约定一个用户只有一个角色
+/*用户角色关联表 在此约定一个用户只有一个角色*/
 CREATE TABLE `tbl_user_role` (
   `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` varchar(20) DEFAULT NULL COMMENT '角色id',
@@ -44,44 +49,44 @@ CREATE TABLE `tbl_role` (
   `role_code` varchar(255) DEFAULT NULL,
   `role_name` varchar(255) DEFAULT NULL,
   `valid_flag` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0: 无效， 1有效',
-   create_time timestamp NULL DEFAULT NULL comment '创建时间',
-   modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-   creator varchar(32) default null comment '创建人',
-   modifier varchar(32) default null comment '修改人',
-   remark varchar(255) default null comment '描述',
+  create_time timestamp NULL DEFAULT NULL comment '创建时间',
+  modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  creator varchar(32) default null comment '创建人',
+  modifier varchar(32) default null comment '修改人',
+  remark varchar(255) default null comment '描述',
   PRIMARY KEY (`id`),
   UNIQUE key `unique_role_code` (`role_code`) using btree
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
---角色资源关联表
+/*角色资源关联表*/
 CREATE TABLE `tbl_role_resource` (
-   id bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  id bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_code` varchar(32) NOT NULL comment '角色编码',
   `res_code` varchar(32) NOT NULL comment '资源编码',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色资源关联表';
 
---资源表 包含菜单和按钮
+/*资源表 包含菜单和按钮*/
 CREATE TABLE `tbl_resource` (
   `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `res_code` varchar(255) DEFAULT NULL COMMENT '资源名称',
   `res_name` varchar(255) DEFAULT NULL COMMENT '资源名称-英文',
   `res_url` varchar(255) DEFAULT NULL COMMENT '资源url',
-  `type` int(11) DEFAULT NULL COMMENT '资源类型   1:菜单    2：按钮',
+  `type` int(11) DEFAULT NULL COMMENT '资源类型   1:菜单(包含一级菜单和二级菜单)    2：按钮',
   `pid` int(11) DEFAULT NULL COMMENT '父资源',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   `valid_flag` tinyint(1) default null comment '有效标志 1：有效，0：无效 表示停用',
-   create_time timestamp NULL DEFAULT NULL comment '创建时间',
-   modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-   creator varchar(32) default null comment '创建人',
-   modifier varchar(32) default null comment '修改人',
-   remark varchar(255) default null comment '描述',
+  create_time timestamp NULL DEFAULT NULL comment '创建时间',
+  modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  creator varchar(32) default null comment '创建人',
+  modifier varchar(32) default null comment '修改人',
+  remark varchar(255) default null comment '描述',
   PRIMARY KEY (`id`),
   UNIQUE key `unique_res_code` (`res_code`) using btree
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='资源表';
 
 
---用户登陆信息表
+/*用户登陆信息表*/
 CREATE TABLE `tbl_account` (
   `id` bigint(32) not null auto_increment comment '主键',
   `user_id` varchar(20) not null comment '用户登录id',
@@ -93,43 +98,43 @@ CREATE TABLE `tbl_account` (
   `stop_date` timestamp null default null comment '用户停用日期',
   `user_status` varchar(1) default null comment '用户当前状态(0：正常，1：密码过期，2：账户已冻结，3：已销户)',
   `valid_flag` TINYINT(1) not null default '1' comment '有效标志 1：有效，0：无效 表示停用',
-   create_time timestamp NULL DEFAULT NULL comment '创建时间',
-   modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-   creator varchar(32) default null comment '创建人',
-   modifier varchar(32) default null comment '修改人',
-   remark varchar(255) default null comment '描述',
+  create_time timestamp NULL DEFAULT NULL comment '创建时间',
+  modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  creator varchar(32) default null comment '创建人',
+  modifier varchar(32) default null comment '修改人',
+  remark varchar(255) default null comment '描述',
   primary key (`id`),
   unique key `unique_user_id` (`user_id`) using btree
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户登录信息表';
 
 
---人员信息表,仅仅是人员信息，公司在职人员并不一定可以登陆系统
+/*人员信息表,仅仅是人员信息，公司在职人员并不一定可以登陆系统*/
 create table `tbl_user` (
   `id` bigint(32) not null auto_increment comment '主键',
   `user_id` varchar(20) not null comment '用户id',
   `username` varchar(40) default null comment '员工姓名',
   `sex` varchar(10) NOT NULL DEFAULT '0' comment '性别, 0: 女， 1：男',
-   birthday timestamp NULL DEFAULT NULL COMMENT '出生日期',
-   card_no varchar(32) DEFAULT NULL COMMENT '身份证号',
+  birthday timestamp NULL DEFAULT NULL COMMENT '出生日期',
+  card_no varchar(32) DEFAULT NULL COMMENT '身份证号',
   `email` varchar(40) default null comment '邮箱',
   `mobile` varchar(20) default null comment '电话',
   `position` varchar(10) default null comment '职位',
-   status tinyint(1) NOT NULL DEFAULT '1' comment '人员状态： 1：在职，0：离职',
+  `status` char(1) NOT NULL DEFAULT '1' comment '人员状态： 1：在职，0：离职',
   `valid_flag` tinyint(1) not null DEFAULT '1' comment '记录是否有效 1:有效, 0:无效',
   `entry_time` timestamp not null default current_timestamp comment '入职时间',
   `resign_time` datetime default null comment '离职日期',
-   create_time timestamp NULL DEFAULT NULL comment '创建时间',
-   modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-   creator varchar(32) default null comment '创建人',
-   modifier varchar(32) default null comment '修改人',
-   remark varchar(255) default null comment '描述',
+  create_time timestamp NULL DEFAULT NULL comment '创建时间',
+  modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  creator varchar(32) default null comment '创建人',
+  modifier varchar(32) default null comment '修改人',
+  remark varchar(255) default null comment '描述',
   primary key (`id`),
   unique key `unique_user_id` (`user_id`) using btree
 ) engine=innodb default charset=utf8 comment='人员信息表';
 
---查询表
+/*查询表*/
 SELECT * from tbl_user;
---账号表
+/*账号表*/
 SELECT * from tbl_account;
 SELECT * from tbl_user_role;
 SELECT * from tbl_role;
@@ -165,14 +170,14 @@ INSERT INTO `tbl_resource` VALUES (17, 'Page',               '信审',   '/audit
 INSERT INTO `tbl_resource` VALUES (18, 'tdScore',               '同盾跑分',   '/audit/tdScore', 1, 17, 17, 1, NULL, '2018-6-4 11:34:53', NULL, NULL, NULL);
 
 
---市场
+/*市场*/
 INSERT INTO `tbl_role_resource`(role_code,res_code) VALUES ('MARKET', 'marketPage');
 INSERT INTO `tbl_role_resource`(role_code,res_code) VALUES ('MARKET', 'smsSend');
 INSERT INTO `tbl_role_resource`(role_code,res_code) VALUES ('MARKET', 'nameIssued');
---信审
+/*信审*/
 INSERT INTO `tbl_role_resource`(role_code,res_code) VALUES ('XLOAN', 'auditPage');
 INSERT INTO `tbl_role_resource`(role_code,res_code) VALUES ('XLOAN', 'tdScore');
---管理员
+/*管理员*/
 INSERT INTO `tbl_role_resource`(role_code,res_code) VALUES ('ADMIN', 'systemPage'             );
 INSERT INTO `tbl_role_resource`(role_code,res_code) VALUES ('ADMIN', 'usersPage'              );
 INSERT INTO `tbl_role_resource`(role_code,res_code) VALUES ('ADMIN', 'rolesPage'              );
