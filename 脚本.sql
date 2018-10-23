@@ -1,8 +1,3 @@
-/*使用springmvc的时候数据类型不要定义成tinyint,该类型通过Mybatis反向生成代码生成boolean类型，这样会带来一个问题：
-前端传递后端的参数必须是“true”和"false"(没错，就是带双引号的true和false字符串)，后端返回给前端的确实0和1。
-解决：在这里建议使用char类型
-*/
-
 /*创建数据dev*/
 CREATE DATABASE zkmkt;
 
@@ -119,7 +114,7 @@ create table `tbl_user` (
   `email` varchar(40) default null comment '邮箱',
   `mobile` varchar(20) default null comment '电话',
   `position` varchar(10) default null comment '职位',
-  `status` char(1) NOT NULL DEFAULT '1' comment '人员状态： 1：在职，0：离职',
+  status tinyint(1) NOT NULL DEFAULT '1' comment '人员状态： 1：在职，0：离职',
   `valid_flag` tinyint(1) not null DEFAULT '1' comment '记录是否有效 1:有效, 0:无效',
   `entry_time` timestamp not null default current_timestamp comment '入职时间',
   `resign_time` datetime default null comment '离职日期',
