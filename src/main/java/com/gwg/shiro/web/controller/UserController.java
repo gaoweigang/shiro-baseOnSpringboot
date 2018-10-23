@@ -95,6 +95,19 @@ public class UserController extends BaseController{
 		}
 	}
 
+	/**
+	 * 获取当前登录用户信息
+	 */
+	@ApiOperation(value = "获取当前登录用户信息")
+	@RequestMapping(value = "/getCurrentUserInfo", method = RequestMethod.POST)
+	public Result<?> getCurrentUserInfo() {
+		Session session = SecurityUtils.getSubject().getSession();
+		AuthUser authUser = (AuthUser) session.getAttribute("userSession");
+		logger.info("getCurrentUserInfo ==> 根据用户ID获取用户最新的信息");
+		User user = userService.getUserByUserid(authUser.getUserid());
+		session.setAttribute("userSession", authUser);
+		return new Result<User>(true, ReturnCode.SUCCESS.getMessage(), user, ReturnCode.SUCCESS.getCode());
+	}
 
 	/** 
 	 * 登出方法
