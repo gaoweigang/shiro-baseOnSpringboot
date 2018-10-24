@@ -1,4 +1,4 @@
-package com.gwg.shiro.web.config;
+package com.gwg.shiro.web.config.redis;
 
 import lombok.Getter;
 import lombok.Setter;

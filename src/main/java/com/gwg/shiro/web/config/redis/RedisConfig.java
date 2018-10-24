@@ -1,4 +1,4 @@
-package com.gwg.shiro.web.config;
+package com.gwg.shiro.web.config.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
