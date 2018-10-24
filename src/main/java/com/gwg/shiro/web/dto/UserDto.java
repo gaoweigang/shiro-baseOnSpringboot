@@ -18,6 +18,12 @@ public class UserDto {
     //姓名
     private String username;
 
+    //员工状态：是否在职
+    private Boolean status;
+
+    //账号状态
+    private String userStatus;
+
     //性别
     private Integer sex;
 

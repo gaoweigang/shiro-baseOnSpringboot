@@ -6,6 +6,7 @@ import com.gwg.shiro.web.exception.BusinessException;
 import com.gwg.shiro.web.mapper.RoleResourceMapper;
 import com.gwg.shiro.web.model.Resource;
 import com.gwg.shiro.web.model.RoleResource;
+import com.gwg.shiro.web.vo.CusMapVo;
 import com.gwg.shiro.web.vo.RoleVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,9 @@ public class RoleResourceDaoImpl implements RoleResourceDao{
         return roleResourceMapper.insertSelective(roleResource) > 0;
     }
 
+    @Override
+    public List<CusMapVo> queryAllRoleResourceMap() throws BusinessException {
+        return roleResourceMapper.queryAllRoleResourceMap();
+    }
 
 }

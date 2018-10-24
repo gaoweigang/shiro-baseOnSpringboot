@@ -1,6 +1,7 @@
 package com.gwg.shiro.web.service.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.gwg.shiro.web.common.Constant;
 import com.gwg.shiro.web.config.shiro.AuthUser;
 import com.gwg.shiro.web.controller.UserController;
 import com.gwg.shiro.web.dao.AccountDao;
@@ -76,6 +77,10 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	public void updateUserInfo(UserDto dto) throws BusinessException{
+		//如果用户离职的话
+		if(!dto.getStatus()){
+			dto.setUserStatus(Constant.ACCOUNT_CLOSE);//已销户
+		}
 		//0.校验数据的合法性
 		//判断该记录是否存在
 		//1.账户表

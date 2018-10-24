@@ -91,7 +91,7 @@ CREATE TABLE `tbl_account` (
   `password` varchar(20) default null comment '密码',
   `start_date` timestamp null default null comment '用户起用日期',
   `stop_date` timestamp null default null comment '用户停用日期',
-  `user_status` varchar(1) default null comment '用户当前状态(0：正常，1：密码过期，2：账户已冻结，3：已销户)',
+  `user_status` char(1) not null default '0' comment '用户当前状态(0：正常，1：密码过期，2：账户已冻结，3：已销户)',
   `valid_flag` TINYINT(1) not null default '1' comment '有效标志 1：有效，0：无效 表示停用',
   create_time timestamp NULL DEFAULT NULL comment '创建时间',
   modify_time timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',

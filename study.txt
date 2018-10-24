@@ -35,3 +35,7 @@ Browsersync能让浏览器实时、快速响应您的文件更改（html、js、
 
 8.Spring处理跨域官方参考文档：
 http://spring.io/blog/2015/06/08/cors-support-in-spring-framework
+
+9.
+@EnableCaching//启用缓存，在这里使用的是redis缓存，启用后才能使用@Cacheable注解
+@EnableWebMvc //Springmvc Java配置方式的时候使用，这种写法不需要web.xml文件

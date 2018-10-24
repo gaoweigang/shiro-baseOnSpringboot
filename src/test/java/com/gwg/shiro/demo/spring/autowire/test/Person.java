@@ -5,6 +5,8 @@ public class Person {
 	private String name;
 	
 	private int age;
+
+	private String father;
 	
 	
 	Person(String name, int age){
@@ -27,6 +29,12 @@ public class Person {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
 
+	public String getFather() {
+		return father;
+	}
+
+	public void setFather(String father) {
+		this.father = father;
+	}
 }

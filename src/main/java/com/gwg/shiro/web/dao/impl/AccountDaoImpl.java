@@ -1,5 +1,6 @@
 package com.gwg.shiro.web.dao.impl;
 
+import com.gwg.shiro.web.common.Constant;
 import com.gwg.shiro.web.dao.AccountDao;
 import com.gwg.shiro.web.dto.UserDto;
 import com.gwg.shiro.web.exception.BusinessException;
@@ -28,7 +29,9 @@ public class AccountDaoImpl implements AccountDao {
         }
         Example example = new Example(Account.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("userid", userid);
+        criteria.andEqualTo("userId", userid);
+        criteria.andEqualTo("validFlag", true);//有效
+        criteria.andEqualTo("userStatus", Constant.ACCOUNT_VALID);//有效
         List<Account> userList = accountMapper.selectByExample(example);
         if(CollectionUtils.isEmpty(userList)){
             return null;

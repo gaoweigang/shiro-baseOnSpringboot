@@ -27,4 +27,18 @@
     GROUP BY t1.id
     ORDER BY t1.sort ASC
   </select>
+
+  <select id="queryAllRoleResourceMap" resultType="com.houbank.market.vo.CusMapVo">
+    SELECT
+    t1.res_url   as cusKey,
+    t3.role_code  as cusValue
+    FROM
+    tbl_resource t1
+    INNER JOIN tbl_role_resource t2 ON t1.res_code = t2.res_code
+    INNER JOIN tbl_role t3 ON t3.role_code = t2.role_code
+    WHERE
+    t1.valid_flag = '1'
+    and t3.valid_flag = '1'
+    ORDER BY t1.sort ASC
+  </select>
 </mapper>

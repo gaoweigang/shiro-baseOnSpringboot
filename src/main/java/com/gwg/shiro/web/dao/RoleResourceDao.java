@@ -4,6 +4,7 @@ import com.gwg.shiro.web.dto.RoleDto;
 import com.gwg.shiro.web.exception.BusinessException;
 import com.gwg.shiro.web.model.Resource;
 import com.gwg.shiro.web.model.RoleResource;
+import com.gwg.shiro.web.vo.CusMapVo;
 import com.gwg.shiro.web.vo.RoleVo;
 import org.springframework.stereotype.Component;
 
@@ -18,5 +19,6 @@ public interface RoleResourceDao {
 
     public boolean addRoleResource(String roleCode, String resCode) throws BusinessException;
 
+    public List<CusMapVo> queryAllRoleResourceMap() throws BusinessException;
 
 }

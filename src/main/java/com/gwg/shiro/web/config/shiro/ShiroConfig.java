@@ -1,6 +1,6 @@
 package com.gwg.shiro.web.config.shiro;
 
-import com.gwg.shiro.web.config.RedisSessionDAO;
+import com.gwg.shiro.web.config.redis.RedisSessionDAO;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -105,7 +105,7 @@ public class ShiroConfig {
 	}
 
 	/**
-	 *
+	 * 这部分可以抽到ShiroDelegate类中
 	 * @return
 	 */
 	@Bean
