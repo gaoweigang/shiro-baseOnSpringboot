@@ -12,11 +12,11 @@ public interface UserRoleService {
 	/**
 	 * 判断用户是不是坐席，如果是坐席，则允许登陆系统
 	 */
-	public boolean isSaleStuff(String userid);
+	public boolean isSaleStuff(String userId);
 
 	/**
 	 *根据用户ID获取用户角色
 	 */
-	public List<String> getRoleListByUserid(String userid);
+	public List<String> getRoleListByUserId(String userId);
 
 }

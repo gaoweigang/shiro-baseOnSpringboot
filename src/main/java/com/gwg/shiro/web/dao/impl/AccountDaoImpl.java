@@ -23,13 +23,13 @@ public class AccountDaoImpl implements AccountDao {
     @Autowired
     private AccountMapper accountMapper;
 
-    public Account queryAccountByUserid(String userid) throws BusinessException {
-        if(StringUtils.isEmpty(userid)){
+    public Account queryAccountByUserId(String userId) throws BusinessException {
+        if(StringUtils.isEmpty(userId)){
             return null;
         }
         Example example = new Example(Account.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("userId", userid);
+        criteria.andEqualTo("userId", userId);
         criteria.andEqualTo("validFlag", true);//有效
         criteria.andEqualTo("userStatus", Constant.ACCOUNT_VALID);//有效
         List<Account> userList = accountMapper.selectByExample(example);

@@ -16,10 +16,10 @@ public class LoginLogDaoImpl implements LoginLogDao{
     @Autowired
     private LoginLogMapper loginLogMapper;
 
-    public LoginLog queryloginLogByUserid(String userid) {
+    public LoginLog queryloginLogByUserId(String userId) {
         Example example = new Example(LoginLog.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("userid", userid);
+        criteria.andEqualTo("userId", userId);
         List<LoginLog> logList = loginLogMapper.selectByExample(example);
         if(CollectionUtils.isEmpty(logList)){
             return null;

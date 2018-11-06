@@ -38,17 +38,17 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRoleDao userRoleDao;
 
-	public User getUserByUserid(String userid) {
-		return userDao.queryUserByUserid(userid);
+	public User getUserByUserId(String userId) {
+		return userDao.queryUserByUserId(userId);
 	}
 
-	public AuthUser getAuthUserByUserid(String userid) {
+	public AuthUser getAuthUserByUserId(String userId) {
 		AuthUser authUser = new AuthUser();
-		User user = userDao.queryUserByUserid(userid);
+		User user = userDao.queryUserByUserId(userId);
 		if(user == null){
 			return null;
 		}
-		Account account = accountDao.queryAccountByUserid(userid);
+		Account account = accountDao.queryAccountByUserId(userId);
 		if(account ==null){
 			return null;
 		}

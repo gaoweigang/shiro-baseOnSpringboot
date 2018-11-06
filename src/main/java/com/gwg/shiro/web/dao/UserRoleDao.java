@@ -10,7 +10,7 @@ public interface UserRoleDao {
     /**
      * 根据用户ID获取用户角色
      */
-    public List<String> queryRoleListByUserid(String userid) throws BusinessException;
+    public List<String> queryRoleListByUserId(String userId) throws BusinessException;
 
     /**
      * 添加用户角色关联信息

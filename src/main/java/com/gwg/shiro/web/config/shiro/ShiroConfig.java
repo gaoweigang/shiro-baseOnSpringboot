@@ -1,6 +1,6 @@
 package com.gwg.shiro.web.config.shiro;
 
-import com.gwg.shiro.web.config.redis.RedisSessionDAO;
+import com.gwg.shiro.web.config.redis.session.RedisSessionDAO;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;

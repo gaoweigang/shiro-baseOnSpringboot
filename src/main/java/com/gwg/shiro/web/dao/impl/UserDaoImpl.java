@@ -26,13 +26,13 @@ public class UserDaoImpl implements UserDao{
     @Autowired
     private UserMapper userMapper;
 
-    public User queryUserByUserid(String userid) {
-        if(StringUtils.isEmpty(userid)){
+    public User queryUserByUserId(String userId) {
+        if(StringUtils.isEmpty(userId)){
             return null;
         }
         Example example = new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("userid", userid);
+        criteria.andEqualTo("userId", userId);
         List<User> userList = userMapper.selectByExample(example);
         if(CollectionUtils.isEmpty(userList)){
             return null;

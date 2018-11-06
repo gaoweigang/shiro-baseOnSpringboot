@@ -21,10 +21,10 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	/**
 	 * 判断用户是不是坐席人员
-	 * @param userid
+	 * @param userId
 	 * @return
 	 */
-	public boolean isSaleStuff(String userid) {
+	public boolean isSaleStuff(String userId) {
 
 		return true;
 	}
@@ -32,7 +32,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 	/**
 	 *根据userid获取用户角色
 	 */
-	public List<String> getRoleListByUserid(String userid){
-		return userRoleDao.queryRoleListByUserid(userid);
+	public List<String> getRoleListByUserId(String userId){
+		return userRoleDao.queryRoleListByUserId(userId);
 	}
 }

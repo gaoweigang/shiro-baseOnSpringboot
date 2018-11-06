@@ -7,6 +7,8 @@ public class Person {
 	private int age;
 
 	private String father;
+
+	private Boolean isMarried = true;
 	
 	
 	Person(String name, int age){
@@ -36,5 +38,13 @@ public class Person {
 
 	public void setFather(String father) {
 		this.father = father;
+	}
+
+	public Boolean getMarried() {
+		return isMarried;
+	}
+
+	public void setMarried(Boolean married) {
+		isMarried = married;
 	}
 }

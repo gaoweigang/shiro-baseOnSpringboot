@@ -28,7 +28,7 @@
     ORDER BY t1.sort ASC
   </select>
 
-  <select id="queryAllRoleResourceMap" resultType="com.houbank.market.vo.CusMapVo">
+  <select id="queryAllRoleResourceMap" resultType="com.gwg.shiro.web.vo.CusMapVo">
     SELECT
     t1.res_url   as cusKey,
     t3.role_code  as cusValue

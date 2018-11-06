@@ -20,7 +20,7 @@ public class LoginLogServiceImpl implements LoginLogService {
         if(user == null || StringUtils.isEmpty(user.getUserId())){
             return;
         }
-        LoginLog log = loginLogDao.queryloginLogByUserid(user.getUserId());
+        LoginLog log = loginLogDao.queryloginLogByUserId(user.getUserId());
         if(log == null){
             LoginLog record = new LoginLog();
             record.setLoginTime(new Date());

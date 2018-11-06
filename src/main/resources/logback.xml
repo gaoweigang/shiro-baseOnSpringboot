@@ -81,7 +81,7 @@
     <!-- <logger name="com.netflix" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE" />
     </logger> -->
-    <root level="info">
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="ASYNC_FILE" />
         <appender-ref ref="ASYNC_ERROR_FILE" />

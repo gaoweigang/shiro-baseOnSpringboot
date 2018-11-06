@@ -6,7 +6,7 @@ import com.gwg.shiro.web.model.Account;
 
 public interface AccountDao {
 
-    public Account queryAccountByUserid(String userid) throws BusinessException;
+    public Account queryAccountByUserId(String userId) throws BusinessException;
 
     public boolean addAccount(UserDto dto) throws BusinessException;
 

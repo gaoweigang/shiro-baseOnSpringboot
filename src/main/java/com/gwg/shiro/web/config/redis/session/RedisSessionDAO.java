@@ -1,4 +1,4 @@
-package com.gwg.shiro.web.config.redis;
+package com.gwg.shiro.web.config.redis.session;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,7 @@ public class RedisSessionDAO extends EnterpriseCacheSessionDAO {
 	// session 在redis过期时间是30分钟30*60
 	private static int expireTime = 1800;
 
-	private static String prefix = "telsale-seat-shiro-session:";
+	private static String prefix = "test-shiro-session:";
 
 	@Setter
 	@Getter

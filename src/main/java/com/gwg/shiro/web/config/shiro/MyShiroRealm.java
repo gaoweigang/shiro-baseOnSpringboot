@@ -2,6 +2,7 @@ package com.gwg.shiro.web.config.shiro;
 
 
 import com.alibaba.fastjson.JSON;
+import com.gwg.shiro.web.common.Constant;
 import com.gwg.shiro.web.config.shiro.AuthUser;
 import com.gwg.shiro.web.service.UserRoleService;
 import com.gwg.shiro.web.service.UserService;
@@ -49,8 +50,8 @@ public class MyShiroRealm extends AuthorizingRealm {
 		// 根据身份信息获取权限信息
 		// 从数据库获取到权限数据
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userid", user.getUserid());
-		List<String> userRoles = userRoleService.getRoleListByUserid(user.getUserid());
+		map.put("userid", user.getUserId());
+		List<String> userRoles = userRoleService.getRoleListByUserId(user.getUserId());
 		LOGGER.info("用户权限信息：{}", JSON.toJSON(userRoles));
 		// 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
@@ -68,11 +69,11 @@ public class MyShiroRealm extends AuthorizingRealm {
 		// 第一步从token中取出用户名
 		String username = (String) token.getPrincipal();
 		// 第二步：根据用户输入的userCode从数据库查询
-		AuthUser authUser = userService.getAuthUserByUserid(username);
+		AuthUser authUser = userService.getAuthUserByUserId(username);
 		// 如果查询不到返回null
 		if (authUser == null)
 			throw new UnknownAccountException();
-		if (!"1".equals(authUser.getValidflag())) {
+		if (!authUser.getValidFlag()) {//无效
 			throw new LockedAccountException(); // 帐号锁定
 		}
 		/**
@@ -84,7 +85,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 		);
 		// 当验证都通过后，把用户信息放在session里
 		Session session = SecurityUtils.getSubject().getSession();
-		session.setAttribute("userSession", authUser);
+		session.setAttribute(Constant.AUTH_USER_KEY, authUser);
 		LOGGER.info("登陆用户sessionId:{}", session.getId());
 		session.setAttribute("userSessionId", session.getId());
 		return authenticationInfo;

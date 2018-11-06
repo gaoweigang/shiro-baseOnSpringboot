@@ -28,6 +28,7 @@ public class CorsConfig {
          * 跨域 协议+域名+端口 只要一个不符合就存在跨域
          * 注意：在这里localhost与127.0.0.1有差异，由于前端服务地址是http://localhost:3000
          */
+        allowedOrigins.add("ws://localhost:8088");
         allowedOrigins.add("http://localhost:3000");
         //allowedOrigins.add("http://127.0.0.1:8088");
         String[] objects = allowedOrigins.toArray(new String[allowedOrigins.size()]);

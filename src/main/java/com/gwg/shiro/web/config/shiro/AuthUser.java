@@ -15,146 +15,99 @@ public class AuthUser implements Serializable {
     /**
      * 用户id
      */
-    @Column(name = "USERID")
-    private String userid;
+    @Column(name = "user_id")
+    private String userId;
 
     /**
-     * 密码
+     * 员工姓名
      */
-    private String password;
+    private String username;
 
     /**
-     * 机构id
+     * 性别
      */
-    @Column(name = "BRANCHID")
-    private String branchid;
+    private String sex;
 
     /**
-     * 坐席别名
+     * 出生日期
      */
-    @Column(name = "BYNAME")
-    private String byname;
+    private Date birthday;
 
     /**
-     * 创建时间
+     * 身份证号
      */
-    @Column(name = "CREATETIME")
-    private Date createtime;
+    @Column(name = "card_no")
+    private String cardNo;
 
     /**
      * 邮箱
      */
-    @Column(name = "EMAIL")
     private String email;
 
     /**
      * 电话
      */
-    @Column(name = "MOBILE")
     private String mobile;
-
-    /**
-     * 办公电话
-     */
-    @Column(name = "OFFICEPHONE")
-    private String officephone;
 
     /**
      * 职位
      */
-    @Column(name = "POSITION")
     private String position;
 
     /**
-     * 性别
+     * 状态： 1,在职， 0,离职
      */
-    @Column(name = "SEX")
-    private String sex;
+    private Integer status;
 
     /**
-     * 坐席等级（12345对应ABCDE, 存储于字典表中。DICTYPEID='SKILLLEVELDIC'）
+     * 记录是否有效 1:有效, 0:无效(销户)
      */
-    @Column(name = "SKILLLEVEL")
-    private String skilllevel;
-
-    /**
-     * 座席姓名
-     */
-    @Column(name = "USERNAME")
-    private String username;
-
-    /**
-     * acd技能组
-     */
-    @Column(name = "VALIDCHGREASON")
-    private String validchgreason;
-
-    /**
-     * 可用标志 1:有效, 0:无效(销户)
-     */
-    @Column(name = "VALIDFLAG")
-    private String validflag;
-
-    /**
-     * 缺省的aftercallwork时长(秒)
-     */
-    @Column(name = "ACDQUEUE")
-    private String acdqueue;
-
-    /**
-     * 电话中心参数定义
-     */
-    @Column(name = "ACDUSERID")
-    private String acduserid;
-
-    /**
-     *
-     */
-    @Column(name = "ACDUSERPWD")
-    private String acduserpwd;
-
-    /**
-     * 变更原因
-     */
-    @Column(name = "ACWSECONDS")
-    private String acwseconds;
-
-    /**
-     * 是否是班长
-     */
-    @Column(name = "USERTYPE")
-    private String usertype;
-
-    /**
-     * 是否初审（1为要初审，0为不初审可直接提核）
-     */
-    private String trial;
-
-    /**
-     * 订单号
-     */
-    @Column(name = "orderNo")
-    private String orderno;
-
-    /**
-     * 记录 有效的 职工 的 入职月份
-     */
-    @Column(name = "entryMonth")
-    private Integer entrymonth;
+    @Column(name = "valid_flag")
+    private Boolean validFlag;
 
     /**
      * 入职时间
      */
-    @Column(name = "entryTime")
-    private Date entrytime;
+    @Column(name = "entry_time")
+    private Date entryTime;
 
     /**
-     * 注销时间
+     * 离职日期
      */
-    @Column(name = "destoryTime")
-    private Date destorytime;
+    @Column(name = "resign_time")
+    private Date resignTime;
+
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    @Column(name = "modify_time")
+    private Date modifyTime;
+
+    /**
+     * 创建人
+     */
+    private String creator;
+
+    /**
+     * 修改人
+     */
+    private String modifier;
+
+    /**
+     * 描述
+     */
+    private String remark;
+
+    private String password;//密码
 
     private static final long serialVersionUID = 1L;
+
 
     /**
      * 获取主键
@@ -177,79 +130,97 @@ public class AuthUser implements Serializable {
     /**
      * 获取用户id
      *
-     * @return USERID - 用户id
+     * @return user_id - 用户id
      */
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
     /**
      * 设置用户id
      *
-     * @param userid 用户id
+     * @param userId 用户id
      */
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     /**
-     * 获取机构id
+     * 获取员工姓名
      *
-     * @return BRANCHID - 机构id
+     * @return username - 员工姓名
      */
-    public String getBranchid() {
-        return branchid;
+    public String getUsername() {
+        return username;
     }
 
     /**
-     * 设置机构id
+     * 设置员工姓名
      *
-     * @param branchid 机构id
+     * @param username 员工姓名
      */
-    public void setBranchid(String branchid) {
-        this.branchid = branchid;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
-     * 获取坐席别名
+     * 获取性别
      *
-     * @return BYNAME - 坐席别名
+     * @return sex - 性别
      */
-    public String getByname() {
-        return byname;
+    public String getSex() {
+        return sex;
     }
 
     /**
-     * 设置坐席别名
+     * 设置性别
      *
-     * @param byname 坐席别名
+     * @param sex 性别
      */
-    public void setByname(String byname) {
-        this.byname = byname;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     /**
-     * 获取创建时间
+     * 获取出生日期
      *
-     * @return CREATETIME - 创建时间
+     * @return birthday - 出生日期
      */
-    public Date getCreatetime() {
-        return createtime;
+    public Date getBirthday() {
+        return birthday;
     }
 
     /**
-     * 设置创建时间
+     * 设置出生日期
      *
-     * @param createtime 创建时间
+     * @param birthday 出生日期
      */
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    /**
+     * 获取身份证号
+     *
+     * @return card_no - 身份证号
+     */
+    public String getCardNo() {
+        return cardNo;
+    }
+
+    /**
+     * 设置身份证号
+     *
+     * @param cardNo 身份证号
+     */
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
     }
 
     /**
      * 获取邮箱
      *
-     * @return EMAIL - 邮箱
+     * @return email - 邮箱
      */
     public String getEmail() {
         return email;
@@ -267,7 +238,7 @@ public class AuthUser implements Serializable {
     /**
      * 获取电话
      *
-     * @return MOBILE - 电话
+     * @return mobile - 电话
      */
     public String getMobile() {
         return mobile;
@@ -283,27 +254,9 @@ public class AuthUser implements Serializable {
     }
 
     /**
-     * 获取办公电话
-     *
-     * @return OFFICEPHONE - 办公电话
-     */
-    public String getOfficephone() {
-        return officephone;
-    }
-
-    /**
-     * 设置办公电话
-     *
-     * @param officephone 办公电话
-     */
-    public void setOfficephone(String officephone) {
-        this.officephone = officephone;
-    }
-
-    /**
      * 获取职位
      *
-     * @return POSITION - 职位
+     * @return position - 职位
      */
     public String getPosition() {
         return position;
@@ -319,273 +272,145 @@ public class AuthUser implements Serializable {
     }
 
     /**
-     * 获取性别
+     * 获取记录是否有效 1:有效, 0:无效(销户)
      *
-     * @return SEX - 性别
+     * @return valid_flag - 记录是否有效 1:有效, 0:无效(销户)
      */
-    public String getSex() {
-        return sex;
+    public Boolean getValidFlag() {
+        return validFlag;
     }
 
     /**
-     * 设置性别
+     * 设置记录是否有效 1:有效, 0:无效(销户)
      *
-     * @param sex 性别
+     * @param validFlag 记录是否有效 1:有效, 0:无效(销户)
      */
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    /**
-     * 获取坐席等级（12345对应ABCDE, 存储于字典表中。DICTYPEID='SKILLLEVELDIC'）
-     *
-     * @return SKILLLEVEL - 坐席等级（12345对应ABCDE, 存储于字典表中。DICTYPEID='SKILLLEVELDIC'）
-     */
-    public String getSkilllevel() {
-        return skilllevel;
-    }
-
-    /**
-     * 设置坐席等级（12345对应ABCDE, 存储于字典表中。DICTYPEID='SKILLLEVELDIC'）
-     *
-     * @param skilllevel 坐席等级（12345对应ABCDE, 存储于字典表中。DICTYPEID='SKILLLEVELDIC'）
-     */
-    public void setSkilllevel(String skilllevel) {
-        this.skilllevel = skilllevel;
-    }
-
-    /**
-     * 获取座席姓名
-     *
-     * @return USERNAME - 座席姓名
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * 设置座席姓名
-     *
-     * @param username 座席姓名
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * 获取acd技能组
-     *
-     * @return VALIDCHGREASON - acd技能组
-     */
-    public String getValidchgreason() {
-        return validchgreason;
-    }
-
-    /**
-     * 设置acd技能组
-     *
-     * @param validchgreason acd技能组
-     */
-    public void setValidchgreason(String validchgreason) {
-        this.validchgreason = validchgreason;
-    }
-
-    /**
-     * 获取可用标志 1:有效, 0:无效(销户)
-     *
-     * @return VALIDFLAG - 可用标志 1:有效, 0:无效(销户)
-     */
-    public String getValidflag() {
-        return validflag;
-    }
-
-    /**
-     * 设置可用标志 1:有效, 0:无效(销户)
-     *
-     * @param validflag 可用标志 1:有效, 0:无效(销户)
-     */
-    public void setValidflag(String validflag) {
-        this.validflag = validflag;
-    }
-
-    /**
-     * 获取缺省的aftercallwork时长(秒)
-     *
-     * @return ACDQUEUE - 缺省的aftercallwork时长(秒)
-     */
-    public String getAcdqueue() {
-        return acdqueue;
-    }
-
-    /**
-     * 设置缺省的aftercallwork时长(秒)
-     *
-     * @param acdqueue 缺省的aftercallwork时长(秒)
-     */
-    public void setAcdqueue(String acdqueue) {
-        this.acdqueue = acdqueue;
-    }
-
-    /**
-     * 获取电话中心参数定义
-     *
-     * @return ACDUSERID - 电话中心参数定义
-     */
-    public String getAcduserid() {
-        return acduserid;
-    }
-
-    /**
-     * 设置电话中心参数定义
-     *
-     * @param acduserid 电话中心参数定义
-     */
-    public void setAcduserid(String acduserid) {
-        this.acduserid = acduserid;
-    }
-
-    /**
-     * 获取密码
-     *
-     * @return ACDUSERPWD - 密码
-     */
-    public String getAcduserpwd() {
-        return acduserpwd;
-    }
-
-    /**
-     * 设置密码
-     *
-     * @param acduserpwd 密码
-     */
-    public void setAcduserpwd(String acduserpwd) {
-        this.acduserpwd = acduserpwd;
-    }
-
-    /**
-     * 获取变更原因
-     *
-     * @return ACWSECONDS - 变更原因
-     */
-    public String getAcwseconds() {
-        return acwseconds;
-    }
-
-    /**
-     * 设置变更原因
-     *
-     * @param acwseconds 变更原因
-     */
-    public void setAcwseconds(String acwseconds) {
-        this.acwseconds = acwseconds;
-    }
-
-    /**
-     * 获取是否是班长
-     *
-     * @return USERTYPE - 是否是班长
-     */
-    public String getUsertype() {
-        return usertype;
-    }
-
-    /**
-     * 设置是否是班长
-     *
-     * @param usertype 是否是班长
-     */
-    public void setUsertype(String usertype) {
-        this.usertype = usertype;
-    }
-
-    /**
-     * 获取是否初审（1为要初审，0为不初审可直接提核）
-     *
-     * @return trial - 是否初审（1为要初审，0为不初审可直接提核）
-     */
-    public String getTrial() {
-        return trial;
-    }
-
-    /**
-     * 设置是否初审（1为要初审，0为不初审可直接提核）
-     *
-     * @param trial 是否初审（1为要初审，0为不初审可直接提核）
-     */
-    public void setTrial(String trial) {
-        this.trial = trial;
-    }
-
-    /**
-     * 获取订单号
-     *
-     * @return orderNo - 订单号
-     */
-    public String getOrderno() {
-        return orderno;
-    }
-
-    /**
-     * 设置订单号
-     *
-     * @param orderno 订单号
-     */
-    public void setOrderno(String orderno) {
-        this.orderno = orderno;
-    }
-
-    /**
-     * 获取记录 有效的 职工 的 入职月份
-     *
-     * @return entryMonth - 记录 有效的 职工 的 入职月份
-     */
-    public Integer getEntrymonth() {
-        return entrymonth;
-    }
-
-    /**
-     * 设置记录 有效的 职工 的 入职月份
-     *
-     * @param entrymonth 记录 有效的 职工 的 入职月份
-     */
-    public void setEntrymonth(Integer entrymonth) {
-        this.entrymonth = entrymonth;
+    public void setValidFlag(Boolean validFlag) {
+        this.validFlag = validFlag;
     }
 
     /**
      * 获取入职时间
      *
-     * @return entryTime - 入职时间
+     * @return entry_time - 入职时间
      */
-    public Date getEntrytime() {
-        return entrytime;
+    public Date getEntryTime() {
+        return entryTime;
     }
 
     /**
      * 设置入职时间
      *
-     * @param entrytime 入职时间
+     * @param entryTime 入职时间
      */
-    public void setEntrytime(Date entrytime) {
-        this.entrytime = entrytime;
+    public void setEntryTime(Date entryTime) {
+        this.entryTime = entryTime;
     }
 
     /**
-     * 获取注销时间
+     * 获取离职日期
      *
-     * @return destoryTime - 注销时间
+     * @return resign_time - 离职日期
      */
-    public Date getDestorytime() {
-        return destorytime;
+    public Date getResignTime() {
+        return resignTime;
     }
 
     /**
-     * 设置注销时间
+     * 设置离职日期
      *
-     * @param destorytime 注销时间
+     * @param resignTime 离职日期
      */
-    public void setDestorytime(Date destorytime) {
-        this.destorytime = destorytime;
+    public void setResignTime(Date resignTime) {
+        this.resignTime = resignTime;
+    }
+
+    /**
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    /**
+     * 获取修改时间
+     *
+     * @return modify_time - 修改时间
+     */
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    /**
+     * 设置修改时间
+     *
+     * @param modifyTime 修改时间
+     */
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+    /**
+     * 获取创建人
+     *
+     * @return creator - 创建人
+     */
+    public String getCreator() {
+        return creator;
+    }
+
+    /**
+     * 设置创建人
+     *
+     * @param creator 创建人
+     */
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    /**
+     * 获取修改人
+     *
+     * @return modifier - 修改人
+     */
+    public String getModifier() {
+        return modifier;
+    }
+
+    /**
+     * 设置修改人
+     *
+     * @param modifier 修改人
+     */
+    public void setModifier(String modifier) {
+        this.modifier = modifier;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getPassword() {

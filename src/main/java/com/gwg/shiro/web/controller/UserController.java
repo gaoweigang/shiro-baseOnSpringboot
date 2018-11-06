@@ -2,6 +2,7 @@ package com.gwg.shiro.web.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import com.gwg.shiro.web.common.Constant;
 import com.gwg.shiro.web.common.PageResult;
 import com.gwg.shiro.web.common.Result;
 import com.gwg.shiro.web.common.ReturnCode;
@@ -74,10 +75,10 @@ public class UserController extends BaseController{
 		try {
 			subject.login(token);
 			Session session = SecurityUtils.getSubject().getSession();
-			AuthUser authUser = (AuthUser) session.getAttribute("userSession");
+			AuthUser authUser = (AuthUser) session.getAttribute(Constant.AUTH_USER_KEY);
 			logger.info("根据用户ID获取用户基本信息");
-			User user = userService.getUserByUserid(authUser.getUserid());
-			session.setAttribute("userSession", authUser);
+			User user = userService.getUserByUserId(authUser.getUserId());
+			session.setAttribute(Constant.AUTH_USER_KEY, authUser);
 			logger.info("将用户的登陆信息记录到日志表 start......");
 			loginLogService.recordLoginLog(user);
 			return new Result<User>(true, ReturnCode.SUCCESS.getMessage(), user, ReturnCode.SUCCESS.getCode());
@@ -102,10 +103,10 @@ public class UserController extends BaseController{
 	@RequestMapping(value = "/getCurrentUserInfo", method = RequestMethod.POST)
 	public Result<?> getCurrentUserInfo() {
 		Session session = SecurityUtils.getSubject().getSession();
-		AuthUser authUser = (AuthUser) session.getAttribute("userSession");
+		AuthUser authUser = (AuthUser) session.getAttribute(Constant.AUTH_USER_KEY);
 		logger.info("getCurrentUserInfo ==> 根据用户ID获取用户最新的信息");
-		User user = userService.getUserByUserid(authUser.getUserid());
-		session.setAttribute("userSession", authUser);
+		User user = userService.getUserByUserId(authUser.getUserId());
+		session.setAttribute(Constant.AUTH_USER_KEY, authUser);
 		return new Result<User>(true, ReturnCode.SUCCESS.getMessage(), user, ReturnCode.SUCCESS.getCode());
 	}
 

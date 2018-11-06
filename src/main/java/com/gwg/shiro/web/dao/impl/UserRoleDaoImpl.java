@@ -23,11 +23,11 @@ public class UserRoleDaoImpl implements UserRoleDao {
     @Autowired
     private UserRoleMapper userRoleMapper;
 
-    public List<String> queryRoleListByUserid(String userid) throws BusinessException{
-        if(StringUtils.isEmpty(userid)){
+    public List<String> queryRoleListByUserId(String userId) throws BusinessException{
+        if(StringUtils.isEmpty(userId)){
             return null;
         }
-        return userRoleMapper.queryRoleListByUserid(userid);
+        return userRoleMapper.queryRoleListByUserid(userId);
     }
 
     public boolean addUserRole(UserDto dto) throws BusinessException{

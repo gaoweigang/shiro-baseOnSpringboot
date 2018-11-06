@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserDao {
 
-    public User queryUserByUserid(String userid);
+    public User queryUserByUserId(String userId);
 
     /**
      * 分页查询-根据条件查询用户信息
