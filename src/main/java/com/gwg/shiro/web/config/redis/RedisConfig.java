@@ -57,6 +57,8 @@ public class RedisConfig {
 
 	/**
 	 * 设置数据存入 redis 的序列化方式
+	 * JdkSerializationRedisSerializer与StringRedisSerializer
+	 * JdkSerializationRedisSerializer支持对所有实现了Serializable的类进行序列化
 	 *
 	 * @param redisTemplate
 	 * @param factory

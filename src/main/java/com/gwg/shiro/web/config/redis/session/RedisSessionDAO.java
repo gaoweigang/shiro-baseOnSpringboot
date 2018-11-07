@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -15,9 +17,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * redis实现共享session
  */
-@Slf4j
+//@Slf4j //使用lombok提供的注解
 @Component
 public class RedisSessionDAO extends EnterpriseCacheSessionDAO {
+
+	private static final Logger log = LoggerFactory.getLogger(RedisSessionDAO.class);
+
 	// session 在redis过期时间是30分钟30*60
 	private static int expireTime = 1800;
 

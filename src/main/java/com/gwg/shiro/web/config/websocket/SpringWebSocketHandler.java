@@ -15,7 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * WebSocketSession没必要放到Redis中,因为WebSocket与具体的某台服务器是长连接
+ * 1.WebSocketSession无法序列化
+ * 2.WebSocketSession没必要放到Redis中,因为WebSocket是与具体的某台服务器建立的长连接。
+ * 3.Websocket的长连接通道一但关闭了websocket session就失效了。不像http协议每次用就去新建一个连接。
+ * 你是可以知道是哪个用户，也知道要发哪些数据，但是问题在于。连接关闭后你发不过去。这也是websocketsession不能序列化的原因。自己构建的session不能解决长连接的问题。
+ * 參考：https://www.sojson.com/blog/238.html
  */
 public class SpringWebSocketHandler extends TextWebSocketHandler {
 

@@ -1,7 +1,10 @@
 package com.gwg.shiro.web.config.shiro;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.ArrayList;
@@ -12,7 +15,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ShiroCache<K, V> implements Cache<K, V> {
 
-	private static final String REDIS_SHIRO_CACHE = "telsale-seat-shiro-cache:";
+	private static final Logger log = LoggerFactory.getLogger(ShiroCache.class);
+	private static final String REDIS_SHIRO_CACHE = "test-shiro-cache:";
 	private String cacheKey;
 	private RedisTemplate<K, V> redisTemplate;
 	private long globExpire = 30;
@@ -23,7 +27,7 @@ public class ShiroCache<K, V> implements Cache<K, V> {
 	}
 
 	public ShiroCache(RedisTemplate<K, V> redisTemplate2) {
-		this.cacheKey = REDIS_SHIRO_CACHE + ":";
+		this.cacheKey = REDIS_SHIRO_CACHE;
 		this.redisTemplate = redisTemplate2;
 	}
 
@@ -65,6 +69,7 @@ public class ShiroCache<K, V> implements Cache<K, V> {
 	@Override
 	public Collection<V> values() {
 		Set<K> set = keys();
+		log.info("模糊查询key:{}", JSON.toJSONString(set));
 		List<V> list = new ArrayList();
 		for (K s : set) {
 			list.add(get(s));

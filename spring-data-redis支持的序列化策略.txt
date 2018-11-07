@@ -1,0 +1,39 @@
+参考：https://blog.csdn.net/y532798113/article/details/82690781
+
+1. spring-data-redis支持的序列化策略
+
+spring-data-redis默认采用的序列化策略有两种，一种是String的序列化策略，一种是JDK的序列化策略。
+
+参考博客   https://blog.csdn.net/pcwblover008/article/details/79915205
+
+redisTemplate可自定义各种key和各种value的序列化方式:
+
+defaultSerializer            默认序列化策略
+key                                普通key,非hash
+value                             普通value,非hash
+hashKey                        hash的filed
+hashValue                     hash的value
+spring-data-redis的序列化类有下面这几个:
+
+GenericToStringSerializer: 可以将任何对象泛化为字符串并序列化
+Jackson2JsonRedisSerializer: 跟JacksonJsonRedisSerializer实际上是一样的
+JacksonJsonRedisSerializer: 序列化object对象为json字符串
+JdkSerializationRedisSerializer: 序列化java对象（被序列化的对象必须实现Serializable接口）,无法转义成对象
+StringRedisSerializer: 简单的字符串序列化
+GenericToStringSerializer:类似StringRedisSerializer的字符串序列化
+GenericJackson2JsonRedisSerializer:类似Jackson2JsonRedisSerializer，但使用时构造函数不用特定的类参考以上序列化,自定义序列化类; 
+博客https://stackoverflow.com/questions/13215024/weird-redis-key-with-spring-data-jedis?answertab=votes#tab-top中,使用了Jackson2JsonRedisSerializer, 需要在配置文件中, 配置一个类,用于反序列化. 这是致命缺陷!!
+
+所以, 我们推荐使用GenericJackson2JsonRedisSerializer
+
+StringRedisTemplate默认采用的是String的序列化策略，保存的key和value都是采用此策略序列化保存的。StringRedisSerializer
+RedisTemplate默认采用的是JDK的序列化策略，保存的key和value都是采用此策略序列化保存的。JdkSerializationRedisSerializer
+
+key和hashKey:    推荐使用     StringRedisSerializer: 简单的字符串序列化
+
+hashValue:          推荐使用     GenericJackson2JsonRedisSerializer:类似Jackson2JsonRedisSerializer，但使用时构造函数不用特定的类
+---------------------
+作者：向着高亮的地方前行
+来源：CSDN
+原文：https://blog.csdn.net/y532798113/article/details/82690781
+版权声明：本文为博主原创文章，转载请附上博文链接！
